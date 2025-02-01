@@ -6,7 +6,7 @@
 /*   By: olachgue <olachgue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 00:02:41 by olachgue          #+#    #+#             */
-/*   Updated: 2025/01/30 23:51:54 by olachgue         ###   ########.fr       */
+/*   Updated: 2025/01/31 23:28:17 by olachgue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	load_images(t_game *game)
 			"mandatory/utils/sprites/wall.xpm",
 			&game->wall.width, &game->wall.height);
 	game->collectible.img = mlx_xpm_file_to_image(game->mlx,
-			"mandatory/utils/sprites/coin5.xpm",
+			"mandatory/utils/sprites/coin.xpm",
 			&game->collectible.width, &game->collectible.height);
 	if (!game->empty.img || !game->exit.img || !game->player.img
 		|| !game->wall.img || !game->collectible.img)

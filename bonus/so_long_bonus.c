@@ -6,7 +6,7 @@
 /*   By: olachgue <olachgue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 04:42:35 by olachgue          #+#    #+#             */
-/*   Updated: 2025/01/30 23:53:44 by olachgue         ###   ########.fr       */
+/*   Updated: 2025/02/01 04:43:44 by olachgue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	main(int ac, char **av)
 {
+
 	t_game	game;
 	t_map	*game_map;
 
@@ -21,11 +22,8 @@ int	main(int ac, char **av)
 	if (!game_map)
 		return (1);
 	if (!check_path(game_map))
-	{
-		free(game_map);
 		return (perror("Error\nPlayer cannot get to the exit or collectibles"),
 			1);
-	}
 	if (!init_game(&game, game_map))
 		return (free(game_map), 1);
 	init_coin_animation(&game);

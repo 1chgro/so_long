@@ -6,41 +6,50 @@
 /*   By: olachgue <olachgue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 23:54:42 by olachgue          #+#    #+#             */
-/*   Updated: 2025/01/19 02:28:39 by olachgue         ###   ########.fr       */
+/*   Updated: 2025/02/01 04:17:19 by olachgue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../so_long.h"
 
-int	validate_args(int ac, char **av)
+void	free_map(t_map *map)
 {
-	if (ac != 2)
+	int	i;
+
+	if (!map)
+		return ;
+	if (map->grid)
 	{
-		perror("Error\nusage: ./so_long <map_path> \t");
-		return (0);
+		i = 0;
+		while (i < map->height)
+		{
+			free(map->grid[i]);
+			i++;
+		}
+		free(map->grid);
 	}
-	if (!valid_file_format(av[1]))
-	{
-		perror("Error\ninvalid file type \t");
-		return (0);
-	}
-	return (1);
+	free(map);
 }
 
-t_map	*init_map(void)
+int	check_walls(t_map *map)
 {
-	t_map	*game_map;
+	int	i;
 
-	game_map = malloc(sizeof(t_map));
-	if (!game_map)
-		return (NULL);
-	game_map->grid = NULL;
-	game_map->players = 0;
-	game_map->exits = 0;
-	game_map->collectibles = 0;
-	game_map->width = 0;
-	game_map->height = 0;
-	return (game_map);
+	i = 0;
+	while (i < map->width)
+	{
+		if (map->grid[0][i] != '1' || map->grid[map->height - 1][i] != '1')
+			return (0);
+		i++;
+	}
+	i = 0;
+	while (i < map->height)
+	{
+		if (map->grid[i][0] != '1' || map->grid[i][map->width - 1] != '1')
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 int	valid_file_format(char *file_name)

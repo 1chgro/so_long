@@ -1,46 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_parse_utils.c                                  :+:      :+:    :+:   */
+/*   map_parse_utils_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olachgue <olachgue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 23:54:42 by olachgue          #+#    #+#             */
-/*   Updated: 2025/01/21 02:41:33 by olachgue         ###   ########.fr       */
+/*   Updated: 2025/02/01 04:40:56 by olachgue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../so_long_bonus.h"
 
-int	validate_args(int ac, char **av)
+int	check_walls(t_map *map)
 {
-	if (ac != 2)
+	int	i;
+
+	i = 0;
+	while (i < map->width)
 	{
-		perror("Error\nusage: ./so_long <map_path> \t");
-		return (0);
+		if (map->grid[0][i] != '1' || map->grid[map->height - 1][i] != '1')
+			return (0);
+		i++;
 	}
-	if (!valid_file_format(av[1]))
+	i = 0;
+	while (i < map->height)
 	{
-		perror("Error\ninvalid file type \t");
-		return (0);
+		if (map->grid[i][0] != '1' || map->grid[i][map->width - 1] != '1')
+			return (0);
+		i++;
 	}
 	return (1);
-}
-
-t_map	*init_map(void)
-{
-	t_map	*game_map;
-
-	game_map = malloc(sizeof(t_map));
-	if (!game_map)
-		return (NULL);
-	game_map->grid = NULL;
-	game_map->players = 0;
-	game_map->exits = 0;
-	game_map->collectibles = 0;
-	game_map->width = 0;
-	game_map->height = 0;
-	return (game_map);
 }
 
 int	valid_file_format(char *file_name)
@@ -69,4 +59,24 @@ int	is_valid_map_char(char c)
 {
 	return (c == '1' || c == '0' || c == 'E'
 		|| c == 'C' || c == 'P' || c == 'N' || c == '\n');
+}
+
+void	count_enemies(t_game *game, int *count)
+{
+	int	x;
+	int	y;
+
+	*count = 0;
+	y = 0;
+	while (y < game->map->height)
+	{
+		x = 0;
+		while (x < game->map->width)
+		{
+			if (game->map->grid[y][x] == 'N')
+				(*count)++;
+			x++;
+		}
+		y++;
+	}
 }
