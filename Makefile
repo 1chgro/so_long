@@ -51,7 +51,7 @@ $(NAME): $(OBJS) $(GNL_OBJS) $(INCS)
 bonus: $(BNS_OBJS) $(GNL_OBJS) $(INCSB)
 	@make -s -C libft
 	@echo "libft compiled successfully"
-	@cc $(CFLAGS) $(FLAGS) $(BNS_OBJS) $(LIBFT) $(GNL_OBJS) -o $(NAME)
+	@cc $(CFLAGS) $(FLAGS) $(BNS_OBJS) $(LIBFT) $(GNL_OBJS) -o so_long_bonus
 	@echo "so_long compiled successfully"
 clean:
 	@make clean -s -C libft
