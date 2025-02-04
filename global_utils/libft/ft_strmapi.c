@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_path.c                                       :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olachgue <olachgue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/18 23:55:39 by olachgue          #+#    #+#             */
-/*   Updated: 2025/02/02 11:03:36 by olachgue         ###   ########.fr       */
+/*   Created: 2024/11/05 12:36:54 by olachgue          #+#    #+#             */
+/*   Updated: 2024/11/12 11:17:01 by olachgue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../so_long.h"
+#include "libft.h"
 
-int	check_path(t_map *map)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	char	**temp_grid;
-	int		result;
+	char	*new_str;
+	size_t	i;
 
-	temp_grid = create_temp_grid(map);
-	if (!temp_grid)
+	if (!s || !f)
+		return (NULL);
+	new_str = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (!new_str)
+		return (NULL);
+	i = 0;
+	while (s[i])
 	{
-		free_map(map);
-		return (0);
+		new_str[i] = (f)(i, s[i]);
+		i++;
 	}
-	copy_grid(temp_grid, map);
-	flood_fill(temp_grid, map->player_position.x, map->player_position.y, map);
-	result = check_reach(temp_grid, map);
-	free_temp_grid(temp_grid, map);
-	return (result);
+	new_str[i] = '\0';
+	return (new_str);
 }

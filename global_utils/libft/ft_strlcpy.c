@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_path.c                                       :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olachgue <olachgue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/18 23:55:39 by olachgue          #+#    #+#             */
-/*   Updated: 2025/02/02 11:03:36 by olachgue         ###   ########.fr       */
+/*   Created: 2024/11/04 13:37:26 by olachgue          #+#    #+#             */
+/*   Updated: 2024/11/09 21:17:30 by olachgue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../so_long.h"
+#include "libft.h"
 
-int	check_path(t_map *map)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	char	**temp_grid;
-	int		result;
+	size_t	i;
 
-	temp_grid = create_temp_grid(map);
-	if (!temp_grid)
+	if (dstsize == 0)
+		return (ft_strlen(src));
+	i = 0;
+	while (i < dstsize - 1 && src[i] != '\0')
 	{
-		free_map(map);
-		return (0);
+		dst[i] = src[i];
+		i++;
 	}
-	copy_grid(temp_grid, map);
-	flood_fill(temp_grid, map->player_position.x, map->player_position.y, map);
-	result = check_reach(temp_grid, map);
-	free_temp_grid(temp_grid, map);
-	return (result);
+	dst[i] = '\0';
+	return (ft_strlen(src));
 }

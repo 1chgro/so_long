@@ -6,7 +6,7 @@
 /*   By: olachgue <olachgue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 23:35:22 by olachgue          #+#    #+#             */
-/*   Updated: 2025/01/30 23:53:16 by olachgue         ###   ########.fr       */
+/*   Updated: 2025/02/02 22:23:35 by olachgue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define SO_LONG_H
 
 # include <mlx.h>
-# include "../get_next_line/get_next_line.h"
-# include "../libft/libft.h"
+# include "../global_utils/get_next_line/get_next_line.h"
+# include "../global_utils/libft/libft.h"
 # include <stdlib.h>
 # include <stdio.h>
 # include <fcntl.h>
@@ -89,4 +89,5 @@ void	free_images(t_game *game);
 int		handle_keys(int keysym, t_game *game);
 int		move_player(t_game *game, int dx, int dy);
 int		close_game(t_game *game);
+void	win_size_check(t_map *map);
 #endif  

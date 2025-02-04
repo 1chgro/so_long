@@ -6,7 +6,7 @@
 /*   By: olachgue <olachgue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 02:52:08 by olachgue          #+#    #+#             */
-/*   Updated: 2025/01/30 23:54:02 by olachgue         ###   ########.fr       */
+/*   Updated: 2025/02/04 02:18:06 by olachgue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define SO_LONG_BONUS_H
 
 # include <mlx.h>
-# include "../get_next_line/get_next_line.h"
-# include "../libft/libft.h"
+# include "../global_utils/get_next_line/get_next_line.h"
+# include "../global_utils/libft/libft.h"
 # include <stdlib.h>
 # include <stdio.h>
 # include <fcntl.h>
@@ -120,5 +120,6 @@ void	move_enemies(t_game *game);
 void	game_over(t_game *game);
 void	cleanup_enemies(t_game *game);
 int		close_game(t_game *game);
+void	win_size_check(t_map *map);
 
 #endif

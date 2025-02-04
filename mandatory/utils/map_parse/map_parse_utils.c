@@ -6,7 +6,7 @@
 /*   By: olachgue <olachgue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 23:54:42 by olachgue          #+#    #+#             */
-/*   Updated: 2025/02/01 04:17:19 by olachgue         ###   ########.fr       */
+/*   Updated: 2025/02/02 16:33:22 by olachgue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	free_map(t_map *map)
 {
 	int	i;
 
-	if (!map)
+	if (!map || !map->grid)
 		return ;
 	if (map->grid)
 	{
@@ -24,11 +24,14 @@ void	free_map(t_map *map)
 		while (i < map->height)
 		{
 			free(map->grid[i]);
+			map->grid[i] = NULL;
 			i++;
 		}
 		free(map->grid);
+		map->grid = NULL;
 	}
 	free(map);
+	map = NULL;
 }
 
 int	check_walls(t_map *map)

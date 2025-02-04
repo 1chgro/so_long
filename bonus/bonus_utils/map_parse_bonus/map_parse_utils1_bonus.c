@@ -6,30 +6,11 @@
 /*   By: olachgue <olachgue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 23:43:20 by olachgue          #+#    #+#             */
-/*   Updated: 2025/02/01 04:41:39 by olachgue         ###   ########.fr       */
+/*   Updated: 2025/02/02 18:01:17 by olachgue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../so_long_bonus.h"
-
-void	free_map(t_map *map)
-{
-	int	i;
-
-	if (!map)
-		return ;
-	if (map->grid)
-	{
-		i = 0;
-		while (i < map->height)
-		{
-			free(map->grid[i]);
-			i++;
-		}
-		free(map->grid);
-	}
-	free(map);
-}
 
 int	check_map_line(t_map *game_map, char *line, int y)
 {
@@ -55,7 +36,7 @@ int	check_map_line(t_map *game_map, char *line, int y)
 	return (1);
 }
 
-static int	map_grid_allocate(t_map *game_map, char *map_file)
+int	map_grid_allocate(t_map *game_map, char *map_file)
 {
 	int	map_fd;
 
@@ -68,7 +49,7 @@ static int	map_grid_allocate(t_map *game_map, char *map_file)
 	return (map_fd);
 }
 
-static int	map_grid_fill_lines(t_map *game_map, int map_fd)
+int	map_grid_fill_lines(t_map *game_map, int map_fd)
 {
 	int	y;
 
@@ -105,4 +86,24 @@ int	map_grid_fill(t_map *game_map, char *map_file)
 		return (0);
 	close(map_fd);
 	return (1);
+}
+
+void	count_enemies(t_game *game, int *count)
+{
+	int	x;
+	int	y;
+
+	*count = 0;
+	y = 0;
+	while (y < game->map->height)
+	{
+		x = 0;
+		while (x < game->map->width)
+		{
+			if (game->map->grid[y][x] == 'N')
+				(*count)++;
+			x++;
+		}
+		y++;
+	}
 }

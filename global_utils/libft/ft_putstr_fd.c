@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_path.c                                       :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olachgue <olachgue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/18 23:55:39 by olachgue          #+#    #+#             */
-/*   Updated: 2025/02/02 11:03:36 by olachgue         ###   ########.fr       */
+/*   Created: 2024/11/05 12:55:01 by olachgue          #+#    #+#             */
+/*   Updated: 2024/11/06 18:13:49 by olachgue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../so_long.h"
+#include "libft.h"
 
-int	check_path(t_map *map)
+void	ft_putstr_fd(char *s, int fd)
 {
-	char	**temp_grid;
-	int		result;
+	size_t	i;
 
-	temp_grid = create_temp_grid(map);
-	if (!temp_grid)
+	if (!s)
+		return ;
+	i = 0;
+	while (s[i])
 	{
-		free_map(map);
-		return (0);
+		ft_putchar_fd(s[i], fd);
+		i++;
 	}
-	copy_grid(temp_grid, map);
-	flood_fill(temp_grid, map->player_position.x, map->player_position.y, map);
-	result = check_reach(temp_grid, map);
-	free_temp_grid(temp_grid, map);
-	return (result);
 }

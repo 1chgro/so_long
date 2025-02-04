@@ -6,13 +6,13 @@
 /*   By: olachgue <olachgue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 04:39:38 by olachgue          #+#    #+#             */
-/*   Updated: 2025/01/30 12:28:34 by olachgue         ###   ########.fr       */
+/*   Updated: 2025/02/02 18:00:16 by olachgue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../so_long_bonus.h"
 
-void	init_coin_animation(t_game *game)
+void	load_coin_images(t_game *game)
 {
 	int	width;
 	int	height;
@@ -36,6 +36,28 @@ void	init_coin_animation(t_game *game)
 			"bonus/bonus_utils/sprites/coin_anim/coin7.xpm", &width, &height);
 	game->coin_anim.coins[7].img = mlx_xpm_file_to_image(game->mlx,
 			"bonus/bonus_utils/sprites/coin_anim/coin8.xpm", &width, &height);
+}
+
+void	validate_coin_images(t_game *game)
+{
+	int	i;
+
+	i = 0;
+	while (i < game->coin_anim.num_frames)
+	{
+		if (!game->coin_anim.coins[i].img)
+		{
+			perror("Error\nCoin frame image is missing");
+			exit(1);
+		}
+		i++;
+	}
+}
+
+void	init_coin_animation(t_game *game)
+{
+	load_coin_images(game);
+	validate_coin_images(game);
 }
 
 void	update_coin_animation(t_game *game)
@@ -64,13 +86,4 @@ void	clean_coin_animation(t_game *game)
 		}
 		i++;
 	}
-}
-
-int	animation_loop(t_game *game)
-{
-	update_coin_animation(game);
-	move_enemies(game);
-	render_map(game);
-	moves_count(game);
-	return (0);
 }

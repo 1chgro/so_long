@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_path.c                                       :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olachgue <olachgue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/18 23:55:39 by olachgue          #+#    #+#             */
-/*   Updated: 2025/02/02 11:03:36 by olachgue         ###   ########.fr       */
+/*   Created: 2024/11/04 20:53:22 by olachgue          #+#    #+#             */
+/*   Updated: 2024/11/04 21:08:49 by olachgue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../so_long.h"
+#include "libft.h"
 
-int	check_path(t_map *map)
+char	*ft_strdup(const char *s1)
 {
-	char	**temp_grid;
-	int		result;
+	char	*dup;
+	size_t	len;
 
-	temp_grid = create_temp_grid(map);
-	if (!temp_grid)
-	{
-		free_map(map);
-		return (0);
-	}
-	copy_grid(temp_grid, map);
-	flood_fill(temp_grid, map->player_position.x, map->player_position.y, map);
-	result = check_reach(temp_grid, map);
-	free_temp_grid(temp_grid, map);
-	return (result);
+	len = ft_strlen(s1) + 1;
+	dup = (char *)malloc(sizeof(char) * len);
+	if (!dup)
+		return (NULL);
+	ft_strlcpy(dup, s1, len);
+	return (dup);
 }

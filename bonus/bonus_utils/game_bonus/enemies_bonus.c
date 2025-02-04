@@ -6,7 +6,7 @@
 /*   By: olachgue <olachgue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 06:08:25 by olachgue          #+#    #+#             */
-/*   Updated: 2025/01/30 21:13:27 by olachgue         ###   ########.fr       */
+/*   Updated: 2025/02/02 18:02:01 by olachgue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,13 @@ void	move_enemies(t_game *game)
 		enemy_movement(game, &game->enemies[i], dx, dy);
 		i++;
 	}
+}
+
+int	animation_loop(t_game *game)
+{
+	update_coin_animation(game);
+	move_enemies(game);
+	render_map(game);
+	moves_count(game);
+	return (0);
 }

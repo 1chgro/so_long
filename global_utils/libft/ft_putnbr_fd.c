@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_path.c                                       :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olachgue <olachgue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/18 23:55:39 by olachgue          #+#    #+#             */
-/*   Updated: 2025/02/02 11:03:36 by olachgue         ###   ########.fr       */
+/*   Created: 2024/11/05 13:02:20 by olachgue          #+#    #+#             */
+/*   Updated: 2024/11/10 11:13:24 by olachgue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../so_long.h"
+#include "libft.h"
 
-int	check_path(t_map *map)
+void	ft_putnbr_fd(int n, int fd)
 {
-	char	**temp_grid;
-	int		result;
+	long	num;
+	char	digit;
 
-	temp_grid = create_temp_grid(map);
-	if (!temp_grid)
+	num = n;
+	if (num < 0)
 	{
-		free_map(map);
-		return (0);
+		ft_putchar_fd('-', fd);
+		num = -num;
 	}
-	copy_grid(temp_grid, map);
-	flood_fill(temp_grid, map->player_position.x, map->player_position.y, map);
-	result = check_reach(temp_grid, map);
-	free_temp_grid(temp_grid, map);
-	return (result);
+	if (num >= 10)
+	{
+		ft_putnbr_fd(num / 10, fd);
+	}
+	digit = (num % 10) + '0';
+	ft_putchar_fd(digit, fd);
 }

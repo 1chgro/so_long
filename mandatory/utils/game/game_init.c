@@ -6,7 +6,7 @@
 /*   By: olachgue <olachgue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 00:02:41 by olachgue          #+#    #+#             */
-/*   Updated: 2025/01/31 23:28:17 by olachgue         ###   ########.fr       */
+/*   Updated: 2025/02/02 16:36:45 by olachgue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,14 @@ int	init_game(t_game *game, t_map *game_map)
 			game_map->height * TILE_SIZE, "so_long");
 	if (!game->win)
 	{
+		free(game->mlx);
 		perror("Error\nFailed to create window\n");
 		return (0);
 	}
 	if (!load_images(game))
 	{
-		free_images(game);
 		mlx_destroy_window(game->mlx, game->win);
-		return (0);
+		exit(1);
 	}
 	return (1);
 }
@@ -75,6 +75,7 @@ int	load_images(t_game *game)
 	if (!game->empty.img || !game->exit.img || !game->player.img
 		|| !game->wall.img || !game->collectible.img)
 	{
+		free_images(game);
 		perror("Error\nFailed to load one or more images");
 		return (0);
 	}

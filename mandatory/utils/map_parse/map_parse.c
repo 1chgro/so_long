@@ -6,7 +6,7 @@
 /*   By: olachgue <olachgue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 23:42:10 by olachgue          #+#    #+#             */
-/*   Updated: 2025/02/01 04:15:57 by olachgue         ###   ########.fr       */
+/*   Updated: 2025/02/02 17:43:38 by olachgue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	get_map_width_height(t_map *game_map, char *map_file)
 	while (line != NULL)
 	{
 		if (map_line_width(line) != game_map->width)
-			return (free(line),
+			return (free(line), free(game_map),
 				close(line_fd), perror("Error\nMap must be rectangular"), 0);
 		height++;
 		free(line);
@@ -106,9 +106,12 @@ t_map	*parse_map(int ac, char **av)
 		return (NULL);
 	}
 	if (!map_grid_fill(game_map, av[1]))
-		return (free_map(game_map), NULL);
+		return (free_map(game_map), free(game_map), NULL);
 	if (!validate_map_components(game_map))
+		return (free_map(game_map), NULL);
+	if (!check_path(game_map))
 	{
+		perror("Error\ninvalid path");
 		free_map(game_map);
 		return (NULL);
 	}

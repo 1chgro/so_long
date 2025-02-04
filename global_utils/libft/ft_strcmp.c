@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_path.c                                       :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olachgue <olachgue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/18 23:55:39 by olachgue          #+#    #+#             */
-/*   Updated: 2025/02/02 11:03:36 by olachgue         ###   ########.fr       */
+/*   Created: 2025/01/18 00:26:59 by olachgue          #+#    #+#             */
+/*   Updated: 2025/01/18 00:27:13 by olachgue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../so_long.h"
+#include "libft.h"
 
-int	check_path(t_map *map)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	char	**temp_grid;
-	int		result;
-
-	temp_grid = create_temp_grid(map);
-	if (!temp_grid)
+	while (*s1 && (*s1 == *s2))
 	{
-		free_map(map);
-		return (0);
+		s1++;
+		s2++;
 	}
-	copy_grid(temp_grid, map);
-	flood_fill(temp_grid, map->player_position.x, map->player_position.y, map);
-	result = check_reach(temp_grid, map);
-	free_temp_grid(temp_grid, map);
-	return (result);
+	return ((unsigned char)*s1 - (unsigned char)*s2);
 }

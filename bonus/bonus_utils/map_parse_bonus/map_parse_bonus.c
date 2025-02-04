@@ -6,26 +6,11 @@
 /*   By: olachgue <olachgue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 23:42:10 by olachgue          #+#    #+#             */
-/*   Updated: 2025/02/01 04:38:38 by olachgue         ###   ########.fr       */
+/*   Updated: 2025/02/02 17:44:02 by olachgue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../so_long_bonus.h"
-
-int	validate_args(int ac, char **av)
-{
-	if (ac != 2)
-	{
-		perror("Error\nusage: ./so_long <map_path> \t");
-		return (0);
-	}
-	if (!valid_file_format(av[1]))
-	{
-		perror("Error\ninvalid file type \t");
-		return (0);
-	}
-	return (1);
-}
 
 t_map	*init_map(void)
 {
@@ -41,6 +26,21 @@ t_map	*init_map(void)
 	game_map->width = 0;
 	game_map->height = 0;
 	return (game_map);
+}
+
+int	validate_args(int ac, char **av)
+{
+	if (ac != 2)
+	{
+		perror("Error\nusage: ./so_long <map_path> \t");
+		return (0);
+	}
+	if (!valid_file_format(av[1]))
+	{
+		perror("Error\ninvalid file type \t");
+		return (0);
+	}
+	return (1);
 }
 
 int	get_map_width_height(t_map *game_map, char *map_file)
@@ -62,7 +62,7 @@ int	get_map_width_height(t_map *game_map, char *map_file)
 	while (line != NULL)
 	{
 		if (map_line_width(line) != game_map->width)
-			return (free(line),
+			return (free(line), free(game_map),
 				close(line_fd), perror("Error\nMap must be rectangular"), 0);
 		height++;
 		free(line);
@@ -106,9 +106,12 @@ t_map	*parse_map(int ac, char **av)
 		return (NULL);
 	}
 	if (!map_grid_fill(game_map, av[1]))
-		return (free_map(game_map), NULL);
+		return (free_map(game_map), free(game_map), NULL);
 	if (!validate_map_components(game_map))
+		return (free_map(game_map), NULL);
+	if (!check_path(game_map))
 	{
+		perror("Error\ninvalid path");
 		free_map(game_map);
 		return (NULL);
 	}
