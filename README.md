@@ -1,4 +1,4 @@
-# 42 so_long Project
+# 42 so_long
 
 ## Description
 
